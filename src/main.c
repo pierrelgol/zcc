@@ -1,4 +1,6 @@
 #include "chibicc.h"
+#include <stdint.h>
+#include <sys/types.h>
 
 typedef enum {
         FILE_NONE,
@@ -56,7 +58,7 @@ static bool take_arg(char *arg) {
             "-Xlinker",
         };
 
-        for (int i = 0; i < sizeof(x) / sizeof(*x); i++)
+        for (uint32_t i = 0; i < sizeof(x) / sizeof(*x); i++)
                 if (!strcmp(arg, x[i])) return true;
         return false;
 }
@@ -573,7 +575,7 @@ static char *find_gcc_libpath(void) {
             "/usr/lib/gcc/x86_64-redhat-linux/*/crtbegin.o", // For Fedora
         };
 
-        for (int i = 0; i < sizeof(paths) / sizeof(*paths); i++) {
+        for (uint32_t i = 0; i < sizeof(paths) / sizeof(*paths); i++) {
                 char *path = find_file(paths[i]);
                 if (path) return dirname(path);
         }
